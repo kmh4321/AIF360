@@ -9,10 +9,9 @@ env:
 
 branches:
   only:
-    - master
+    - sklearn-compat
 
 install:
-  - pip install numpy==1.15
   - pip install -r requirements.txt
   - pip install flake8
   - if ! wget ${UCI_HTTPS_URL}/adult/adult.data -P aif360/data/raw/adult/ ; then wget ${UCI_FTP_URL}/adult/adult.data -P aif360/data/raw/adult/ ; fi
@@ -29,4 +28,4 @@ before_script:
 script:
   # stop the build if there are Python syntax errors or undefined names
   - flake8 . --count --select=E901,E999,F821,F822,F823 --show-source --statistics
-  - travis_wait pytest tests
+  - travis_wait python -m pytest aif360/sklearn/tests
